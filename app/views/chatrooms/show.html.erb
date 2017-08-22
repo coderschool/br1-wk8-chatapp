@@ -1,0 +1,13 @@
+<h1 class="title"><%= @chatroom.topic %></h1>
+
+<% @chatroom.messages.each do |message| %>
+  <div class="card">
+    <div class="card-content message" id="<%= dom_id message %>">
+      <%= message.body %>
+    </div>
+  </div>
+<% end %>
+
+<%= form_for @message do |f| %>
+  <%= f.text_field :body, class: "input", placeholder: "Type to chat" %>
+<% end %>

@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :chatrooms
+  resources :messages
+
   root 'home#index'
 
   devise_for :users

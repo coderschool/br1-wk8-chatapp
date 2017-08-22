@@ -1,2 +1,18 @@
 <h1>Chatapp!!!</h1>
 <p>Chat with other users in real time</p>
+
+<% Chatroom.all.each do |chatroom| %>
+  <div>
+    <%= link_to chatroom.topic, chatroom %>
+  </div>
+<% end %>
+
+<% if current_user %>
+  <%= form_for Chatroom.new do |f| %>
+    <%= f.text_field :topic, class: "input", placeholder: "Create a chat room..." %>
+    <%= f.submit "Enter", class: "button is-primary" %>
+  <% end %>
+<% else %>
+  <%= link_to "Sign Up", new_user_registration_path %> | 
+  <%= link_to "Log In", new_user_session_path %>
+<% end %>
