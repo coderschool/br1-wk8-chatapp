@@ -7,7 +7,8 @@ class MessagesController < ApplicationController
     @message.user = current_user
     if @message.save
       # ... extra things we will do later
-      BroadcastJs.notify_message(@message, action_name)
+      # BroadcastJs.notify_message(@message, action_name)
+      Broadcast.notify_created_message(@message)
     end
 
     respond_to do |format|
@@ -24,7 +25,8 @@ class MessagesController < ApplicationController
 
   def destroy
     @message = Message.find params[:id]
-    BroadcastJs.notify_message(@message, action_name)
+    # BroadcastJs.notify_message(@message, action_name)
+    Broadcast.notify_destroyed_message(@message)
     @message.destroy
     respond_to do |format|
       format.html { redirect_back fallback_location: root_path }

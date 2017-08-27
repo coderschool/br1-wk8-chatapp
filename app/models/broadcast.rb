@@ -1,6 +1,6 @@
 class Broadcast
-  def self.notify_new_message(message)
-    MessagesChannel.broadcast_to message.chatroom, notify: 'new', html: to_html(message)
+  def self.notify_created_message(message)
+    MessagesChannel.broadcast_to message.chatroom, notify: 'create', html: to_html(message)
   end
 
   def self.notify_destroyed_message(message)

@@ -16,13 +16,14 @@ function setupMessages(roomId) {
         console.log('#messages received: ', data);
 
         switch (data.notify) {
-          case 'new':
+          case 'create':
             $('.chat-messages').append(data.html);
             break;
           case 'destroy':
             $('#' + data.dom_id).remove();
             break;
           case 'script':
+            /* for BroadcastJs stuff */
             eval(data.script);
             break;
           default:
