@@ -1,4 +1,5 @@
-<div class="panel-block chat-message" id="<%= dom_id message %>">
+<div class="panel-block chat-message notification is-white" id="<%= dom_id message %>" style="margin-bottom: 0">
   <strong><%= message.user_display %></strong>:
   <%= message.body %>
+  <%= link_to "", message, remote: true, class: "delete", method: "delete" %>
 </div>

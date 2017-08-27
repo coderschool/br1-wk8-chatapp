@@ -22,6 +22,16 @@ class MessagesController < ApplicationController
     end
   end
 
+  def destroy
+    @message = Message.find params[:id]
+    Broadcast.notify_destroyed_message(@message)
+    @message.destroy
+    respond_to do |format|
+      format.html { redirect_back fallback_location: root_path }
+      format.js
+    end
+  end
+
   private
 
   def message_params

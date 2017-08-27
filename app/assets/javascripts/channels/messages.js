@@ -14,8 +14,18 @@ function setupMessages(roomId) {
       received: function(data) {
         // Called when there's incoming data on the websocket for this channel
         console.log('#messages received: ', data);
-        var messageHtml = data.html;
-        $('.chat-messages').append(messageHtml);
+
+        switch (data.notify) {
+          case 'new':
+            $('.chat-messages').append(data.html);
+            break;
+          case 'destroy':
+            $('#' + data.dom_id).remove();
+            break;
+          default:
+            console.log('unrecognized data.notify');
+            break;
+        }
       }
     }
   );
