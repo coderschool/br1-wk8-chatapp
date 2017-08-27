@@ -7,10 +7,18 @@ class MessagesController < ApplicationController
     @message.user = current_user
     if @message.save
       # ... extra things we will do later
-      ActionCable.server.broadcast 'messages', html: render(@message)
-      redirect_to @chatroom
-    else
-      render 'new'
+      Broadcast.notify_new_message(@message)
+    end
+
+    respond_to do |format|
+      format.html do
+        if @message.persisted?
+          redirect_to @chatroom
+        else
+          render 'new'
+        end
+      end
+      format.js
     end
   end
 

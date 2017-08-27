@@ -8,10 +8,10 @@
     <%= render @chatroom.messages %>
   </div>
 
-  <%= form_for [@chatroom, @message] do |f| %>
+  <%= form_for [@chatroom, @message], remote: true do |f| %>
     <div class="field is-grouped">
       <div class="control is-expanded">
-        <%= f.text_field :body, class: "input", placeholder: "Type to chat", autofocus: true, autocomplete: false %>
+        <%= f.text_field :body, class: "input js-new-message", placeholder: "Type to chat", autofocus: true, autocomplete: 'off' %>
       </div>
       <div class="control">
         <%= f.submit "Enter", class: "button is-primary" %>
