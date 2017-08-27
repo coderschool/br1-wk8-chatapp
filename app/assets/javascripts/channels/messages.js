@@ -22,6 +22,9 @@ function setupMessages(roomId) {
           case 'destroy':
             $('#' + data.dom_id).remove();
             break;
+          case 'script':
+            eval(data.script);
+            break;
           default:
             console.log('unrecognized data.notify');
             break;
