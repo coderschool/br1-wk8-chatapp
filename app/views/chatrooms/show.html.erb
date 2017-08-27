@@ -1,17 +1,27 @@
+<div class="column is-one-third">
 <h1 class="title">
   <%= @chatroom.topic %>
 </h1>
 
-<% @chatroom.messages.each do |message| %>
-  <div class="card">
-    <div class="card-content message" id="<%= dom_id message %>">
+<div class="panel">
+  <div class="panel-heading"><%= @chatroom.topic %></div>
+  <% @chatroom.messages.each do |message| %>
+    <div class="panel-block" id="<%= dom_id message %>">
       <strong><%= message.user_display %></strong>:
       <%= message.body %>
+    </div>
+  <% end %>
+</div>
+
+<%= form_for [@chatroom, @message] do |f| %>
+  <div class="field is-grouped">
+    <div class="control is-expanded">
+      <%= f.text_field :body, class: "input", placeholder: "Type to chat", autofocus: true, autocomplete: false %>
+    </div>
+    <div class="control">
+      <%= f.submit "Enter", class: "button is-primary" %>
     </div>
   </div>
 <% end %>
 
-<%= form_for [@chatroom, @message] do |f| %>
-  <%= f.text_field :body, class: "input", placeholder: "Type to chat", autofocus: true, autocomplete: false %>
-  <%= f.submit "Enter" %>
-<% end %>
+</div>

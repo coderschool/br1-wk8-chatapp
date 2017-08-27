@@ -1,18 +1,35 @@
-<h1>Chatapp!!!</h1>
-<p>Chat with other users in real time</p>
+<div class="column is-one-third">
+  <h1>Chatapp!!!</h1>
+  <p>Chat with other users in real time</p>
 
-<% Chatroom.all.each do |chatroom| %>
-  <div>
-    <%= link_to chatroom.topic, chatroom %>
+  <div class="panel">
+    <% Chatroom.all.each do |chatroom| %>
+      <div class="panel-block">
+        <%= link_to chatroom do %>
+          <%= chatroom.topic %>
+          <span class="tag"><%= chatroom.messages_count %></span>
+        <% end %>
+      </div>
+    <% end %>
   </div>
-<% end %>
 
-<% if current_user %>
-  <%= form_for Chatroom.new do |f| %>
-    <%= f.text_field :topic, class: "input", placeholder: "Create a chat room..." %>
-    <%= f.submit "Enter", class: "button is-primary" %>
+  <% if current_user %>
+    <%= form_for Chatroom.new do |f| %>
+    <div class="card">
+      <div class="card-content">
+      <div class="field is-grouped">
+        <div class="control">
+          <%= f.text_field :topic, class: "input", placeholder: "Create a chat room..." %>
+        </div>
+        <div class="control">
+          <%= f.submit "Enter", class: "button is-primary" %>
+        </div>
+      </div>
+      </div>
+    </div>
+    <% end %>
+  <% else %>
+    <%= link_to "Sign Up", new_user_registration_path %> |
+    <%= link_to "Log In", new_user_session_path %>
   <% end %>
-<% else %>
-  <%= link_to "Sign Up", new_user_registration_path %> | 
-  <%= link_to "Log In", new_user_session_path %>
-<% end %>
+</div>
