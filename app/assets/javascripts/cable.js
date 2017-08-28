@@ -9,5 +9,6 @@
   this.App || (this.App = {});
 
   App.cable = ActionCable.createConsumer();
+}.call(this));
 
-}).call(this);
+console.log('cable.js');
