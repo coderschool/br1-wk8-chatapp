@@ -7,7 +7,11 @@ class MessagesController < ApplicationController
     @message.user = current_user
     if @message.save
       # ... extra things we will do later
-      redirect_to @chatroom
+      ChatChannel.broadcast_to @chatroom, html: ApplicationController.render(@message)
+      respond_to do |format|
+        format.html { redirect_to @chatroom }
+        format.js
+      end
     else
       render 'new'
     end

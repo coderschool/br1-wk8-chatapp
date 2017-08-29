@@ -1,27 +1,27 @@
 <div class="column is-one-third">
-<h1 class="title">
-  <%= @chatroom.topic %>
-</h1>
+  <h1 class="title">
+    <%= @chatroom.topic %>
+  </h1>
 
-<div class="panel">
-  <div class="panel-heading"><%= @chatroom.topic %></div>
-  <% @chatroom.messages.each do |message| %>
-    <div class="panel-block" id="<%= dom_id message %>">
-      <strong><%= message.user_display %></strong>:
-      <%= message.body %>
+  <div class="panel">
+    <div class="panel-heading"><%= @chatroom.topic %></div>
+    <div class="js-chat-messages">
+      <%= render @chatroom.messages %>
+    </div>
+  </div>
+
+  <%= form_for [@chatroom, @message], remote: true do |f| %>
+    <div class="field is-grouped">
+      <div class="control is-expanded">
+        <%= f.text_field :body, class: "input js-new-message", placeholder: "Type to chat", autofocus: true, autocomplete: false %>
+      </div>
+      <div class="control">
+        <%= f.submit "Enter", class: "button is-primary" %>
+      </div>
     </div>
   <% end %>
 </div>
-
-<%= form_for [@chatroom, @message] do |f| %>
-  <div class="field is-grouped">
-    <div class="control is-expanded">
-      <%= f.text_field :body, class: "input", placeholder: "Type to chat", autofocus: true, autocomplete: false %>
-    </div>
-    <div class="control">
-      <%= f.submit "Enter", class: "button is-primary" %>
-    </div>
-  </div>
-<% end %>
-
-</div>
+<script>
+  console.log("calling setupRoom");
+  setupRoom(<%= @chatroom.id %>);
+</script>
